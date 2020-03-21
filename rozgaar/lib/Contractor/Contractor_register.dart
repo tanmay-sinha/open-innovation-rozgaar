@@ -26,7 +26,10 @@ class _contractor_registrationState extends State<contractor_registration> {
         child: Form(
           key: _formKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              SizedBox(height: 24.0),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Name',
