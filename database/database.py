@@ -6,6 +6,8 @@ from geopy.distance import distance as dis
 conn = sqlite3.connect('database/labourers.db')
 cursor = conn.cursor()
 
+cursor.execute("SELECT max(labourer_id) from labourer_details")
+count_labourers = cursor.fetchone()[0]
 
 def create_table():
     cursor.execute('''CREATE TABLE IF NOT EXISTS labourer_details(
@@ -20,8 +22,9 @@ def create_table():
     )''')
 
 
-def data_entry(labourer_id, name, age, skill, gender,
+def data_entry(name, age, skill, gender,
                latitudes, longitudes, income):
+    labourer_id = count_labourers + 1
     cursor.execute('''INSERT INTO labourer_details (
         labourer_id, name, age, skill, gender,
                latitudes, longitudes, income
@@ -51,7 +54,9 @@ def data_retrieval(skill, latitudes, longitudes):
         distance = round(distance, 3)
         labourer.append(distance)
         input_data.append(labourer)
-    print(input_data)
+    # print(input_data)
+    return input_data
+
 
 
 if __name__ == "__main__":
@@ -60,16 +65,17 @@ if __name__ == "__main__":
     # names = ['tanmay', 'anshuman', 'ankan', 'shreyash',
     #          'raju', 'babu rao', 'shyam', 'hello', 'world']
     # for i in range(51):
-    #     labourer_id = i+1
-    #     name = random.choice(names)
-    #     age = random.randint(18, 60)
-    #     skill = random.randint(1, 10)
-    #     gender = random.randint(0, 1)
-    #     latitudes = round(random.uniform(23.65, 23.85), 3)
-    #     longitudes = round(random.uniform(86.30, 86.50), 3)
-    #     income = random.randint(1, 10)*100
-    #     data_entry(labourer_id, name, age, skill, gender,
-    #                latitudes, longitudes, income)
+        # labourer_id = i+1
+    # name = random.choice(names)
+    # age = random.randint(18, 60)
+    # skill = random.randint(1, 10)
+    # gender = random.randint(0, 1)
+    # latitudes = round(random.uniform(23.65, 23.85), 3)
+    # longitudes = round(random.uniform(86.30, 86.50), 3)
+    # income = random.randint(1, 10)*100
+
+    # data_entry(name, age, skill, gender,
+    #           latitudes, longitudes, income)
     #     time.sleep(1)
     # data_retrieval(5, 23.43, 86.5)
     # cursor.close()
