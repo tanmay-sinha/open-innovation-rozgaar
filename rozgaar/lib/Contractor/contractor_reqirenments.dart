@@ -111,32 +111,9 @@ class _contractor_requirenmentState extends State<contractor_requirenment> {
                   RaisedButton(
                       child: Text("Loacation"),
                       onPressed: () {
-                        //  Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //       builder: (context) => Location()));
-
+                   
                     },
                       )
-                  // RaisedButton(
-                  //     child: Text("Location"),
-                  //     onPressed: () {
-                  //       Navigator.push(
-                  //         context,
-                  //         MaterialPageRoute(
-                  //           builder: (context) => PlacePicker(
-                  //             apiKey:
-                  //                 "AIzaSyBjY9QF01OsfFXH83XyV9F5sZQRZGgQ1sQ", // Put YOUR OWN KEY here.
-                  //             onPlacePicked: (result) {
-                  //               print(result.address);
-                  //               Navigator.of(context).pop();
-                  //             },
-                  //             initialPosition: HomePage.kInitialPosition,
-                  //             useCurrentLocation: true,
-                  //           ),
-                  //         ),
-                  //       );
-                  //     }),
                   ,
                   RaisedButton(
                       child: Text("Search"),
