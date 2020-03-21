@@ -8,9 +8,16 @@ class SelectSkillsLabour extends StatefulWidget {
 class _SelectSkillsLabourState extends State<SelectSkillsLabour> {
 
   Map<String, bool> skills = {
-    'Woodwork' : false,
-    'Masonry' : false,
-    'Painting' : false,
+    'Carpentry':false,
+    'Painting':false,
+    'Masonry':false,
+    'Plumbing':false,
+    'Electrician':false,
+    'Cleaner':false,
+    'Rigger':false,
+    'Transport':false,
+    'Welder':false,
+    'Fitter':false,
   };
   var tempSkills = [];
 
