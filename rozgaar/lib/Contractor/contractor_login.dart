@@ -1,17 +1,16 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'contractor_reqirenments.dart';
 import 'Contractor_register.dart';
 
-class contractorLogin extends StatefulWidget {
+class ContractorLogin extends StatefulWidget {
   @override
-  _contractorLoginState createState() => _contractorLoginState();
+  _ContractorLoginState createState() => _ContractorLoginState();
 }
 
-class _contractorLoginState extends State<contractorLogin> {
+class _ContractorLoginState extends State<ContractorLogin> {
   final GlobalKey<FormFieldState<String>> _passwordFieldKey =
       new GlobalKey<FormFieldState<String>>();
   String _id;
@@ -63,12 +62,12 @@ class _contractorLoginState extends State<contractorLogin> {
                       //Navigator.pop(context);
                       formKey.currentState.save();
                       print("Request generated $_id $_password");
-                      Map login_data = {'id': _id, 'password': _password};
-                      var json_login_data = jsonEncode(login_data);
-                      print(json_login_data);
+                      Map loginData = {'id': _id, 'password': _password};
+                      var jsonLoginData = jsonEncode(loginData);
+                      print(jsonLoginData);
                       Response response = await post(
                         'http://httpbin.org/post',
-                        body: json_login_data,
+                        body: jsonLoginData,
                       );
                       print(response.body);
                       print(response.statusCode);
@@ -76,7 +75,7 @@ class _contractorLoginState extends State<contractorLogin> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => contractor_requirenment()));
+                              builder: (context) => ContractorRequirenment()));
                     },
                   ),
                   Text("or"),
@@ -88,7 +87,7 @@ class _contractorLoginState extends State<contractorLogin> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => contractor_registration()));
+                              builder: (context) => ContractorRegistration()));
                     },
                   ),
                 ])),
