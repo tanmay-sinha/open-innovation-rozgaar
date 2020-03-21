@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:rozgaar/Labour/labour_login.dart';
 import 'package:rozgaar/Labour/labour_select_skills.dart';
+import 'package:rozgaar/get_location.dart';
 
 
 class LabourRegister extends StatefulWidget {
@@ -12,7 +13,11 @@ class LabourRegister extends StatefulWidget {
 
 class _LabourRegisterState extends State<LabourRegister> {
 
-  String _name, _gender, _location;
+  String _name, _gender;
+  Map<String, double> _location = {
+    'latitude': 0.0,
+    'longitude': 0.0,
+  };
   List _skills = [];
   int _age;
   String skill = "";
@@ -81,20 +86,48 @@ class _LabourRegisterState extends State<LabourRegister> {
                   _age = age;
                 },
               ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Location',
-                ),
-                validator: (val){
-                  if(val.isEmpty){
-                    return 'Location cannot be empty';
-                  }
-                  return null;
-                },
-                onSaved: (val){
-                  _location = val;
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  RaisedButton(
+                    child: Text(
+                      'Get location',
+                    ),
+                    onPressed: (){
+                      // var response =  FetchLocation().returnLocation();
+                      // setState(() {
+                      //   _location = response;
+                      // });
+                      FetchLocation().returnLocation().then((result) {
+                        print(result);
+                        setState(() {
+                          _location = result;
+                        });
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    width: 50.0,
+                  ),
+                  Text(
+                    'Latitude: ${_location['latitude']} Longitude: ${_location['longitude']}',
+                  ),
+                ],
               ),
+              // TextFormField(
+              //   decoration: InputDecoration(
+              //     labelText: 'Location',
+              //   ),
+              //   validator: (val){
+              //     if(val.isEmpty){
+              //       return 'Location cannot be empty';
+              //     }
+              //     return null;
+              //   },
+              //   onSaved: (val){
+              //     _location = val;
+              //   },
+              // ),
               SizedBox(
                 height: 10.0,
               ),
@@ -166,7 +199,8 @@ class _LabourRegisterState extends State<LabourRegister> {
                     };
                     var jsonData = jsonEncode(data);
                     Response response = await post(
-                      'http://httpbin.org/post',
+                      'http://127.0.0.1:5000/add_database/post',
+                      // 'http://httpbin.org/post',
                       body: jsonData,
                     );
                     print(response.body);
