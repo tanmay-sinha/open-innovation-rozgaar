@@ -37,18 +37,28 @@ class Model:
         return x
 
     #if direct input of lists of list is given call this
-    def preprocess_input(self,x,type):   
-        x= self.poly.transform(x)
+    def preprocess_input(self,x,type):
+        #Now x is Dictionary of lists
+        xs=[]
+        indexes={}
+        c=0
+        for key,value in x.items():
+            indexes[c]=key
+            c+=1
+            xs.append(value)
+            
+        xs=np.array(xs)
+        x= self.poly.transform(xs)
         xscaler=sc()
         if type=='+':
             xscaler=self.xscaler_positive
         elif type=='-':
             xscaler=self.xscaler_negative
         x=xscaler.transform(x)
-        return x
+        return x,indexes
 
     #after preprocess_input call predict to get a list of predicted scores for laborers
-    def predict(self,x,type):
+    def predict(self,x,type,indexes):
         model=Ridge()
         yscaler=sc()
         if type=='+':
@@ -59,16 +69,20 @@ class Model:
             yscaler=self.yscaler_negative
         
         y_pred= model.predict(x)
-        return yscaler.inverse_transform(y_pred)
+        y_pred= yscaler.inverse_transform(y_pred)
+        idscores={}
+        for i in range(len(indexes)):
+            idscores[indexes[i]]=y_pred[i][0]
+        return idscores
 
 
 if __name__=='__main__':
     obj=Model()
     #Input format Lists of Lists [[age,gender,income,distance,workintensity](labor 1),[age,gender,...](labor2),...etc]
     #========NOTE====>> All functions contain type as parameter in which you need to pass '+' or '-' depending upon the work will be age prefered positively or negatively
-    l2=[[26,0,200,8,9],[36,1,1000,3,9],[25,0,1000,20,9]]
-    pre= obj.preprocess_input(l2,'-')
-    ans= obj.predict(pre,'-')
+    l2={2:[26,0,200,8,9],5:[36,1,1000,3,9],8:[25,0,1000,20,9]}
+    pre,index= obj.preprocess_input(l2,'-')
+    ans= obj.predict(pre,'-',index)
     print(ans)
     
     
