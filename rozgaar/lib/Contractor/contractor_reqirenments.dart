@@ -5,8 +5,6 @@ import 'package:http/http.dart';
 
 import 'resultDisplay.dart';
 
-  
-
 class contractor_requirenment extends StatefulWidget {
   @override
   _contractor_requirenmentState createState() =>
@@ -109,12 +107,9 @@ class _contractor_requirenmentState extends State<contractor_requirenment> {
                     },
                   ),
                   RaisedButton(
-                      child: Text("Loacation"),
-                      onPressed: () {
-                   
-                    },
-                      )
-                  ,
+                    child: Text("Loacation"),
+                    onPressed: () {},
+                  ),
                   RaisedButton(
                       child: Text("Search"),
                       onPressed: () async {
@@ -135,11 +130,10 @@ class _contractor_requirenmentState extends State<contractor_requirenment> {
                         );
                         print(response.body);
                         print(response.statusCode);
-                         Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>  resultDisplay(response)));
-                
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => resultDisplay(response)));
                       })
                 ],
               ))),

@@ -51,30 +51,16 @@ class _contractorLoginState extends State<contractorLogin> {
                     fieldKey: _passwordFieldKey,
                     helperText: 'No more than 8 characters.',
                     labelText: 'Password *',
-                    onFieldSubmitted: (String value) {
-                      setState(() {
-                        _password = value;
-                      });
+                    onSaved: (String value){
+                      _password= value;
                     },
                   ),
                   RaisedButton(
                     child: Text('Login'),
                     color: Colors.black26,
-                    onPressed: () {
-                      //Navigator.pop(context);
-                      //Navigator.pop(context);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => contractor_requirenment()));
-                    },
-                  ),
-                  Text("or"),
-                  SizedBox(height: 40.0),
-                  RaisedButton(
-                    child: Text('Register'),
-                    color: Colors.black26,
                     onPressed: () async {
+                      //Navigator.pop(context);
+                      //Navigator.pop(context);
                       formKey.currentState.save();
                       print("Request generated $_id $_password");
                       Map login_data = {'id': _id, 'password': _password};
@@ -87,6 +73,18 @@ class _contractorLoginState extends State<contractorLogin> {
                       print(response.body);
                       print(response.statusCode);
 
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => contractor_requirenment()));
+                    },
+                  ),
+                  Text("or"),
+                  SizedBox(height: 40.0),
+                  RaisedButton(
+                    child: Text('Register'),
+                    color: Colors.black26,
+                    onPressed: ()  {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
