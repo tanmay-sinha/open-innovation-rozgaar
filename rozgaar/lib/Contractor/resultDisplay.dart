@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
-class resultDisplay extends StatefulWidget {
+class ResultDisplay extends StatefulWidget {
+  // var response;
+  // resultDisplay(var x) {
+    // this.response = x;
+  // }
   var response;
-  resultDisplay(var x) {
-    this.response = x;
-  }
+  ResultDisplay(this.response);
   @override
-  _resultDisplayState createState() => _resultDisplayState();
+  _ResultDisplayState createState() => _ResultDisplayState();
 }
 
-class _resultDisplayState extends State<resultDisplay> {
+class _ResultDisplayState extends State<ResultDisplay> {
   var response;
   resultDisplay(var x) {
     this.response = x;

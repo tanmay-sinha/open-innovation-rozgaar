@@ -1,17 +1,17 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'contractor_login.dart';
+// import 'contractor_login.dart';
 
-class contractor_registration extends StatefulWidget {
+class ContractorRegistration extends StatefulWidget {
   @override
-  _contractor_registrationState createState() =>
-      _contractor_registrationState();
+  _ContractorRegistrationState createState() =>
+      _ContractorRegistrationState();
 }
 
-class _contractor_registrationState extends State<contractor_registration> {
+class _ContractorRegistrationState extends State<ContractorRegistration> {
   String _name, _phone, _location;
-  int _age;
+  // int _age;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -26,7 +26,10 @@ class _contractor_registrationState extends State<contractor_registration> {
         child: Form(
           key: _formKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              SizedBox(height: 24.0),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Name',
