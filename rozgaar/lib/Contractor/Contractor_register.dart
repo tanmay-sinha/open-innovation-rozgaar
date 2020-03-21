@@ -10,7 +10,7 @@ class ContractorRegistration extends StatefulWidget {
 }
 
 class _ContractorRegistrationState extends State<ContractorRegistration> {
-  String _name, _phone, _location;
+  String _name, _phone;
   // int _age;
 
   final _formKey = GlobalKey<FormState>();
@@ -59,20 +59,48 @@ class _ContractorRegistrationState extends State<ContractorRegistration> {
                 },
               ),
 
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Location',
-                ),
-                validator: (val) {
-                  if (val.isEmpty) {
-                    return 'Location cannot be empty';
-                  }
-                  return null;
-                },
-                onSaved: (val) {
-                  _location = val;
-                },
-              ),
+              // TextFormField(
+              //   decoration: InputDecoration(
+              //     labelText: 'Location',
+              //   ),
+              //   validator: (val) {
+              //     if (val.isEmpty) {
+              //       return 'Location cannot be empty';
+              //     }
+              //     return null;
+              //   },
+              //   onSaved: (val) {
+              //     _location = val;
+              //   },
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: <Widget>[
+              //     RaisedButton(
+              //       child: Text(
+              //         'Get location',
+              //       ),
+              //       onPressed: (){
+              //         // var response =  FetchLocation().returnLocation();
+              //         // setState(() {
+              //         //   _location = response;
+              //         // });
+              //         FetchLocation().returnLocation().then((result) {
+              //           print(result);
+              //           setState(() {
+              //             _location = result;
+              //           });
+              //         });
+              //       },
+              //     ),
+              //     SizedBox(
+              //       width: 50.0,
+              //     ),
+              //     Text(
+              //       'Latitude: ${_location['latitude']} Longitude: ${_location['longitude']}',
+              //     ),
+              //   ],
+              // ),
               SizedBox(
                 height: 10.0,
               ),
@@ -91,7 +119,7 @@ class _ContractorRegistrationState extends State<ContractorRegistration> {
                     Map data = {
                       'name': _name,
                       'phone': _phone, //**************
-                      'location': _location,
+                      // 'location': _location,
                     };
                     var jsonData = jsonEncode(data);
                     Response response = await post(
