@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'contractor_login.dart';
-// import 'Contractor/contractor_login.dart';
+import 'Contractor/contractor_login.dart';
 import 'Labour/labour.dart';
 // import 'labour.dart';
 
@@ -33,10 +33,10 @@ class Home extends StatelessWidget {
                   RaisedButton(
                     child: Text('Contractor'),
                     onPressed: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => contractorLogin()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => contractorLogin()));
                     },
                   ),
                 ],
