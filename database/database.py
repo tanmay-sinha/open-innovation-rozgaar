@@ -2,13 +2,9 @@ import sqlite3
 import random
 import time
 import json
-import requests
-import googlemaps
+from geopy.distance import distance as dis
 conn = sqlite3.connect('database/labourers.db')
 cursor = conn.cursor()
-
-with open('api.json') as f:
-    API_KEY = json.load(f)["API_KEY"]
 
 
 def create_table():
@@ -37,17 +33,29 @@ def data_entry(labourer_id, name, age, skill, gender,
     conn.commit()
 
 
-def find_distance():
-    pass
+def find_distance(contractor_lat, contractor_long,
+                  labour_lat, labour_long):
+    coord1 = (contractor_lat, contractor_long)
+    coord2 = (labour_lat, labour_long)
+    return dis(coord1, coord2).km
 
 
 def data_retrieval(skill, latitudes, longitudes):
     cursor.execute(
         f'''SELECT * FROM labourer_details WHERE skill={skill}'''
     )
+    input_data = []
+    for row in cursor.fetchall():
+        labourer = [row[2], row[4], row[7]]
+        distance = find_distance(latitudes, longitudes, row[5], row[6])
+        distance = round(distance, 3)
+        labourer.append(distance)
+        input_data.append(labourer)
+    print(input_data)
 
 
 if __name__ == "__main__":
+    pass
     # create_table()
     # names = ['tanmay', 'anshuman', 'ankan', 'shreyash',
     #          'raju', 'babu rao', 'shyam', 'hello', 'world']
@@ -66,10 +74,8 @@ if __name__ == "__main__":
     # data_retrieval(5, 23.43, 86.5)
     # cursor.close()
     # conn.close()
-    # URL = "https://maps.googleapis.com/maps/api/distancematrix/json?"
-    # r = requests.get(
-    #     URL+f"origins=23.745541,86.343521&destinations=23.412358,85.439989&key={API_KEY}")
-    # print(r.json())
-    gmaps = googlemaps.Client(key=f'{API_KEY}')
-    my_dist = gmaps.distance_matrix('Delhi','Mumbai')['rows'][0]['elements'][0]
-    print(my_dist)
+
+    # cor1 = (23.745541, 86.343521)
+    # cor2 = (23.412358, 85.439989)
+
+    # print(distance(cor1, cor2))
