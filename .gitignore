@@ -29,7 +29,7 @@ api.json
 .packages
 .pub-cache/
 .pub/
-/build/
+/rozgaar/build/
 
 # Web related
 lib/generated_plugin_registrant.dart

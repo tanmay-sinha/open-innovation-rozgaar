@@ -1,4 +1,0 @@
-#Sat Mar 21 12:26:03 IST 2020
-base.0=/home/tanmay/Documents/open-innovation-rozgaar/rozgaar/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
