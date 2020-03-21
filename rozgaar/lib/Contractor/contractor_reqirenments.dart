@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 import 'resultDisplay.dart';
+import 'package:rozgaar/get_location.dart';
 
 class ContractorRequirenment extends StatefulWidget {
   @override
@@ -14,6 +15,10 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
   String _workHours;
   String _wage;
   String _numberOfLabours;
+  Map<String, double> _location = {
+    'latitude': 0.0,
+    'longitude': 0.0,
+  };
   final formKey = GlobalKey<FormState>();
 
   static const menuItems = <String>[
@@ -37,7 +42,7 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
       )
       .toList();
 
-  String _btn1SelectedVal;
+  String _skill;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +64,7 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                       border: UnderlineInputBorder(),
                       filled: true,
                       hintText: "number not more than 20",
-                      labelText: "Number of Labour required",
+                      labelText: "Number of Labours required",
                     ),
                     onSaved: (val) {
                       _numberOfLabours = val;
@@ -67,19 +72,47 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                   ),
                   // SizedBox(height: 24.0),
                   ListTile(
-                    title: Text('Skills required:'),
+                    title: Text('Skill required:'),
                     trailing: DropdownButton(
-                      value: _btn1SelectedVal,
+                      value: _skill,
                       hint: Text('Choose'),
                       onChanged: ((String newValue) {
                         setState(() {
-                          _btn1SelectedVal = newValue;
+                          _skill = newValue;
                         });
                       }),
                       items: _dropDownMenuItems,
                     ),
                   ),
                   //SizedBox(height: 24.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      RaisedButton(
+                        child: Text(
+                          'Get location',
+                        ),
+                        onPressed: (){
+                          // var response =  FetchLocation().returnLocation();
+                          // setState(() {
+                          //   _location = response;
+                          // });
+                          FetchLocation().returnLocation().then((result) {
+                            print(result);
+                            setState(() {
+                              _location = result;
+                            });
+                          });
+                        },
+                      ),
+                      SizedBox(
+                        width: 50.0,
+                      ),
+                      Text(
+                        'Latitude: ${_location['latitude']} Longitude: ${_location['longitude']}',
+                      ),
+                    ],
+                  ),
                   TextFormField(
                     decoration: InputDecoration(
                       border: UnderlineInputBorder(),
@@ -102,10 +135,10 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                       _workHours = val;
                     },
                   ),
-                  RaisedButton(
-                    child: Text("Loacation"),
-                    onPressed: () {},
-                  ),
+                  // RaisedButton(
+                  //   child: Text("Loacation"),
+                  //   onPressed: () {},
+                  // ),
                   RaisedButton(
                       child: Text("Search"),
                       onPressed: () async {
@@ -113,10 +146,11 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                         print(
                             'request generated, number of labour required is $_numberOfLabours , Workhour= $_workHours , wage offer= $_wage');
                         Map requirementData = {
-                          'number_of_labour_required': _numberOfLabours,
+                          'number': _numberOfLabours,
                           'work_hour': _workHours,
                           'wage_offer': _wage,
-                          'job_choice': _btn1SelectedVal,
+                          'skill': _skill,
+                          'location': _location,
                         };
                         var jsonRequirementData = jsonEncode(requirementData);
                         print(jsonRequirementData);

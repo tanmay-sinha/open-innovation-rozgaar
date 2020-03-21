@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:rozgaar/Labour/labour_login.dart';
-import 'package:rozgaar/Labour/labour_select_skills.dart';
+// import 'package:rozgaar/Labour/labour_select_skills.dart';
 import 'package:rozgaar/get_location.dart';
 
 
@@ -18,12 +18,33 @@ class _LabourRegisterState extends State<LabourRegister> {
     'latitude': 0.0,
     'longitude': 0.0,
   };
-  List _skills = [];
   int _age;
   String skill = "";
 
   final _formKey = GlobalKey<FormState>();
 
+  static const menuItems = <String>[
+    'Carpentry',
+    'Painting',
+    'Masonry',
+    'Plumbing',
+    'Electrician',
+    'Cleaner',
+    'Rigger',
+    'Transport',
+    'Welder',
+    'Fitter',
+  ];
+  final List<DropdownMenuItem<String>> _dropDownMenuItems = menuItems
+      .map(
+        (String value) => DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        ),
+      )
+      .toList();
+
+  String _skill;
 
   @override
   Widget build(BuildContext context) {
@@ -131,51 +152,108 @@ class _LabourRegisterState extends State<LabourRegister> {
               SizedBox(
                 height: 10.0,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Text(
-                    'Skills selected: ',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  // Text(
-                  //   '$skill',
-                  // ),
-                  Row(
-                    children: _skills?.map((skill)  {
-                      return Container(
-                        child: Text(
-                          '$skill ',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                          ),
-                        ),
-                      );
-                    })?.toList() ?? [],
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              RaisedButton(
-                child: Text(
-                  'Select your skills'
+              ListTile(
+                title: Text('Skill required:'),
+                trailing: DropdownButton(
+                  value: _skill,
+                  hint: Text('Choose'),
+                  onChanged: ((String newValue) {
+                    setState(() {
+                      _skill = newValue;
+                    });
+                  }),
+                  items: _dropDownMenuItems,
                 ),
-                onPressed: () async{
-                  // await skillSelection(context);
-                  var result = await Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => SelectSkillsLabour()));
-                  
-                  if(result == null){
-                    result = [];
-                  }
-                  print(result);
-                  _skills = result;
-                },
               ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: <Widget>[
+              //     Text(
+              //       'Skills selected: ',
+              //       style: TextStyle(
+              //         fontSize: 18.0,
+              //       ),
+              //     ),
+              //     // Text(
+              //     //   '$skill',
+              //     // ),
+              //     Row(
+              //       children: _skills?.map((skill)  {
+              //         return Container(
+              //           child: Text(
+              //             '$skill ',
+              //             style: TextStyle(
+              //               fontSize: 16.0,
+              //             ),
+              //           ),
+              //         );
+              //       })?.toList() ?? [],
+              //     ),
+              //   ],
+              // ),
+              // SizedBox(
+              //   height: 10.0,
+              // ),
+              // RaisedButton(
+              //   child: Text(
+              //     'Select your skills'
+              //   ),
+              //   onPressed: () async{
+              //     // await skillSelection(context);
+              //     // var result = await Navigator.push(
+              //     //   context, MaterialPageRoute(builder: (context) => SelectSkillsLabour()));
+                  
+              //     // if(result == null){
+              //     //   result = [];
+              //     // }
+              //     // print(result);
+              //     // _skills = result;Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: <Widget>[
+              //     Text(
+              //       'Skills selected: ',
+              //       style: TextStyle(
+              //         fontSize: 18.0,
+              //       ),
+              //     ),
+              //     // Text(
+              //     //   '$skill',
+              //     // ),
+              //     Row(
+              //       children: _skills?.map((skill)  {
+              //         return Container(
+              //           child: Text(
+              //             '$skill ',
+              //             style: TextStyle(
+              //               fontSize: 16.0,
+              //             ),
+              //           ),
+              //         );
+              //       })?.toList() ?? [],
+              //     ),
+              //   ],
+              // ),
+              // SizedBox(
+              //   height: 10.0,
+              // ),
+              // RaisedButton(
+              //   child: Text(
+              //     'Select your skills'
+              //   ),
+              //   onPressed: () async{
+              //     // await skillSelection(context);
+              //     // var result = await Navigator.push(
+              //     //   context, MaterialPageRoute(builder: (context) => SelectSkillsLabour()));
+                  
+              //     // if(result == null){
+              //     //   result = [];
+              //     // }
+              //     // print(result);
+              //     // _skills = result;
+              //   },
+              // ),
+              //   },
+              // ),
               SizedBox(
                 height: 10.0,
               ),
@@ -195,7 +273,7 @@ class _LabourRegisterState extends State<LabourRegister> {
                       'age' : _age,
                       'gender' : _gender,
                       'location' : _location,
-                      'skills' : _skills,
+                      'skills' : _skill,
                     };
                     var jsonData = jsonEncode(data);
                     Response response = await post(
