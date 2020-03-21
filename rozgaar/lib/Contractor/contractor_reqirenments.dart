@@ -7,8 +7,7 @@ import 'resultDisplay.dart';
 
 class ContractorRequirenment extends StatefulWidget {
   @override
-  _ContractorRequirenmentState createState() =>
-      _ContractorRequirenmentState();
+  _ContractorRequirenmentState createState() => _ContractorRequirenmentState();
 }
 
 class _ContractorRequirenmentState extends State<ContractorRequirenment> {
@@ -18,10 +17,16 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
   final formKey = GlobalKey<FormState>();
 
   static const menuItems = <String>[
-    'One',
-    'Two',
-    'Three',
-    'Four',
+    'Carpentry',
+    'Painting',
+    'Masonry',
+    'Plumbing',
+    'Electrician',
+    'Cleaner',
+    'Rigger',
+    'Transport',
+    'Welder',
+    'Fitter',
   ];
   final List<DropdownMenuItem<String>> _dropDownMenuItems = menuItems
       .map(
@@ -31,17 +36,8 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
         ),
       )
       .toList();
-  final List<PopupMenuItem<String>> _popUpMenuItems = menuItems
-      .map(
-        (String value) => PopupMenuItem<String>(
-          value: value,
-          child: Text(value),
-        ),
-      )
-      .toList();
-  String _btn1SelectedVal = 'One';
-  String _btn2SelectedVal;
-  String _btn3SelectedVal;
+
+  String _btn1SelectedVal;
 
   @override
   Widget build(BuildContext context) {
@@ -73,11 +69,11 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                   ListTile(
                     title: Text('Skills required:'),
                     trailing: DropdownButton(
-                      value: _btn2SelectedVal,
+                      value: _btn1SelectedVal,
                       hint: Text('Choose'),
                       onChanged: ((String newValue) {
                         setState(() {
-                          _btn2SelectedVal = newValue;
+                          _btn1SelectedVal = newValue;
                         });
                       }),
                       items: _dropDownMenuItems,
@@ -119,14 +115,18 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                         Map requirementData = {
                           'number_of_labour_required': _numberOfLabours,
                           'work_hour': _workHours,
-                          'wage_offer': _wage
+                          'wage_offer': _wage,
+                          'job_choice': _btn1SelectedVal,
                         };
-                        var jsonRequirementData =
-                            jsonEncode(requirementData);
+                        var jsonRequirementData = jsonEncode(requirementData);
                         print(jsonRequirementData);
                         Response response = await post(
-                          'http://httpbin.org/post',
-                          body: jsonRequirementData,
+                          "http://192.168.43.43:5000/get_details",
+                      headers: {
+                        "accept":"application/json",
+                        "content-type":"application/json",
+                      },
+                      body: jsonRequirementData,
                         );
                         print(response.body);
                         print(response.statusCode);

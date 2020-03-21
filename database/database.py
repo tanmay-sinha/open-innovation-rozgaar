@@ -3,7 +3,7 @@ import random
 import time
 import json
 from geopy.distance import distance as dis
-conn = sqlite3.connect('database/labourers.db')
+conn = sqlite3.connect('database/labourers.db', check_same_thread=False)
 cursor = conn.cursor()
 
 cursor.execute("SELECT max(labourer_id) from labourer_details")
@@ -33,6 +33,7 @@ def data_entry(name, age, skill, gender,
         labourer_id, name, age, skill, gender,
         latitudes, longitudes, income
     ))
+    count_labourers = count_labourers + 1
     conn.commit()
 
 
