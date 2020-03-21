@@ -50,8 +50,8 @@ class _ContractorLoginState extends State<ContractorLogin> {
                     fieldKey: _passwordFieldKey,
                     helperText: 'No more than 8 characters.',
                     labelText: 'Password *',
-                    onSaved: (String value){
-                      _password= value;
+                    onSaved: (String value) {
+                      _password = value;
                     },
                   ),
                   RaisedButton(
@@ -83,7 +83,7 @@ class _ContractorLoginState extends State<ContractorLogin> {
                   RaisedButton(
                     child: Text('Register'),
                     color: Colors.black26,
-                    onPressed: ()  {
+                    onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
