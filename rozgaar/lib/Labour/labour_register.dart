@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:rozgaar_app/labour_login.dart';
-import 'package:rozgaar_app/select_skills_labour.dart';
+import 'package:rozgaar/Labour/labour_login.dart';
+import 'package:rozgaar/Labour/labour_select_skills.dart';
 
 
 class LabourRegister extends StatefulWidget {

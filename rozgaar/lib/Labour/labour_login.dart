@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:rozgaar_app/labour_home.dart';
+import 'package:rozgaar/Labour/labour_home.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
