@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'dart:convert';
 
 class ResultDisplay extends StatefulWidget {
   var response;
