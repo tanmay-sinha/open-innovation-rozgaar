@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rozgaar/Labour/labour_register.dart';
-import 'package:rozgaar/Labour/labour_login.dart';
 
 class Labour extends StatelessWidget {
   @override

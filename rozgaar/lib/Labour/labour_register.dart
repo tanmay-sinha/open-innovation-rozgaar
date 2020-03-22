@@ -16,7 +16,7 @@ class _LabourRegisterState extends State<LabourRegister> {
     'longitude': 0.0,
   };
   int _age;
-  String _contact_no;
+  String _contactNo;
   String skill = "";
 
   final _formKey = GlobalKey<FormState>();
@@ -96,7 +96,7 @@ class _LabourRegisterState extends State<LabourRegister> {
                   return null;
                 },
                 onSaved: (val) {
-                  _contact_no = val;
+                  _contactNo = val;
                 },
               ),
               TextFormField(
@@ -187,7 +187,7 @@ class _LabourRegisterState extends State<LabourRegister> {
                       'gender': _gender,
                       'location': _location,
                       'skills': _skill,
-                      'contact': _contact_no,
+                      'contact': _contactNo,
                     };
                     var jsonData = jsonEncode(data);
                     Response response = await post(

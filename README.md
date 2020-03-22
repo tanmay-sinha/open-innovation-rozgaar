@@ -21,7 +21,6 @@ Along with labours, it would be a convenient method for contractors as well and 
 - Flask
 - Flutter
 - SQLite3
-- Google Map API
 - Sklearn
 
 ## Usage of App
