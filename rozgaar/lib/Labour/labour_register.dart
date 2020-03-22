@@ -4,20 +4,19 @@ import 'package:http/http.dart';
 import 'package:rozgaar/Labour/labour_login.dart';
 import 'package:rozgaar/get_location.dart';
 
-
 class LabourRegister extends StatefulWidget {
   @override
   _LabourRegisterState createState() => _LabourRegisterState();
 }
 
 class _LabourRegisterState extends State<LabourRegister> {
-
   String _name, _gender;
   Map<String, double> _location = {
     'latitude': 0.0,
     'longitude': 0.0,
   };
   int _age;
+  String _contact_no;
   String skill = "";
 
   final _formKey = GlobalKey<FormState>();
@@ -47,7 +46,6 @@ class _LabourRegisterState extends State<LabourRegister> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Register yourself'),
@@ -63,13 +61,13 @@ class _LabourRegisterState extends State<LabourRegister> {
                 decoration: InputDecoration(
                   labelText: 'Name',
                 ),
-                validator: (val){
-                  if(val.isEmpty){
+                validator: (val) {
+                  if (val.isEmpty) {
                     return 'Name cannot be empty';
                   }
                   return null;
                 },
-                onSaved: (val){
+                onSaved: (val) {
                   _name = val;
                 },
               ),
@@ -77,28 +75,42 @@ class _LabourRegisterState extends State<LabourRegister> {
                 decoration: InputDecoration(
                   labelText: 'Gender',
                 ),
-                validator: (val){
-                  if(val.isEmpty){
+                validator: (val) {
+                  if (val.isEmpty) {
                     return 'Gender cannot be empty';
                   }
                   return null;
                 },
-                onSaved: (val){
+                onSaved: (val) {
                   _gender = val;
+                },
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Contact number',
+                ),
+                validator: (val) {
+                  if (val.length != 10) {
+                    return 'Must be a 10 digit number';
+                  }
+                  return null;
+                },
+                onSaved: (val) {
+                  _contact_no = val;
                 },
               ),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Age',
                 ),
-                validator: (val){
+                validator: (val) {
                   int age = int.tryParse(val);
-                  if(age == null || age < 0){
+                  if (age == null || age < 0) {
                     return 'Age cannot be empty or negative';
                   }
                   return null;
                 },
-                onSaved: (val){
+                onSaved: (val) {
                   int age = int.tryParse(val);
                   _age = age;
                 },
@@ -122,11 +134,9 @@ class _LabourRegisterState extends State<LabourRegister> {
                     splashColor: Colors.grey,
                     child: Text(
                       'Get location',
-                      style: TextStyle(
-                        fontSize: 14.0
-                      ),
+                      style: TextStyle(fontSize: 14.0),
                     ),
-                    onPressed: (){
+                    onPressed: () {
                       FetchLocation().returnLocation().then((result) {
                         print(result);
                         setState(() {
@@ -141,7 +151,7 @@ class _LabourRegisterState extends State<LabourRegister> {
                 height: 10.0,
               ),
               ListTile(
-                title: Text('Skill required:'),
+                title: Text('Skill :'),
                 trailing: DropdownButton(
                   value: _skill,
                   hint: Text('Choose'),
@@ -158,9 +168,9 @@ class _LabourRegisterState extends State<LabourRegister> {
               ),
               RaisedButton(
                 textColor: Colors.white,
-                  color: Colors.lightBlue,
-                  padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
-                  splashColor: Colors.grey,
+                color: Colors.lightBlue,
+                padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                splashColor: Colors.grey,
                 child: Text(
                   'Submit',
                   style: TextStyle(
@@ -168,29 +178,31 @@ class _LabourRegisterState extends State<LabourRegister> {
                   ),
                 ),
                 onPressed: () async {
-                  if(_formKey.currentState.validate()){
+                  if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
                     print('Registration successful');
                     Map data = {
-                      'name' : _name,
-                      'age' : _age,
-                      'gender' : _gender,
-                      'location' : _location,
-                      'skills' : _skill,
+                      'name': _name,
+                      'age': _age,
+                      'gender': _gender,
+                      'location': _location,
+                      'skills': _skill,
+                      'contact': _contact_no,
                     };
                     var jsonData = jsonEncode(data);
                     Response response = await post(
                       "http://192.168.43.43:5000/add_database",
                       headers: {
-                        "accept":"application/json",
-                        "content-type":"application/json",
+                        "accept": "application/json",
+                        "content-type": "application/json",
                       },
                       body: jsonData,
                     );
                     print(response.body);
                     print(response.statusCode);
                     Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => LabourLogin()),
+                      context,
+                      MaterialPageRoute(builder: (context) => LabourLogin()),
                     );
                   }
                 },

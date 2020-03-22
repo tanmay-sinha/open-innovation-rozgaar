@@ -48,6 +48,7 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
       appBar: new AppBar(
         title: Text("Requirements"),
       ),
+      resizeToAvoidBottomPadding: false,
       body: Container(
           padding: EdgeInsets.all(10.0),
           child: Form(
@@ -98,7 +99,7 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                         child: Text(
                           'Get location',
                         ),
-                        onPressed: (){
+                        onPressed: () {
                           FetchLocation().returnLocation().then((result) {
                             print(result);
                             setState(() {
@@ -157,19 +158,20 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                         var jsonRequirementData = jsonEncode(requirementData);
                         print(jsonRequirementData);
                         Response response = await post(
-                          "http://192.168.43.43:5000/get_details",
-                      headers: {
-                        "accept":"application/json",
-                        "content-type":"application/json",
-                      },
-                      body: jsonRequirementData,
+                          "http://192.168.43.137:5000/get_details",
+                          headers: {
+                            "accept": "application/json",
+                            "content-type": "application/json",
+                          },
+                          body: jsonRequirementData,
                         );
                         print(response.body);
                         print(response.statusCode);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ResultDisplay(response)));
+                                builder: (context) =>
+                                    ResultDisplay(json.decode(response.body))));
                       })
                 ],
               ))),

@@ -4,8 +4,7 @@ import 'package:http/http.dart';
 
 class ContractorRegistration extends StatefulWidget {
   @override
-  _ContractorRegistrationState createState() =>
-      _ContractorRegistrationState();
+  _ContractorRegistrationState createState() => _ContractorRegistrationState();
 }
 
 class _ContractorRegistrationState extends State<ContractorRegistration> {
@@ -56,11 +55,9 @@ class _ContractorRegistrationState extends State<ContractorRegistration> {
                   _phone = val;
                 },
               ),
-
               SizedBox(
                 height: 10.0,
               ),
-
               RaisedButton(
                 textColor: Colors.white,
                 color: Colors.lightBlue,
@@ -68,9 +65,7 @@ class _ContractorRegistrationState extends State<ContractorRegistration> {
                 splashColor: Colors.grey,
                 child: Text(
                   'Submit',
-                  style: TextStyle(
-                    fontSize: 18.0
-                  ),
+                  style: TextStyle(fontSize: 18.0),
                 ),
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
