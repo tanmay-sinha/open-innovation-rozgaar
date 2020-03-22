@@ -48,6 +48,7 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
       appBar: new AppBar(
         title: Text("Requirements"),
       ),
+      resizeToAvoidBottomPadding: false,
       body: Container(
           padding: EdgeInsets.all(10.0),
           child: Form(
@@ -67,6 +68,53 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                     onSaved: (val) {
                       _numberOfLabours = val;
                     },
+                  ),
+                  ListTile(
+                    title: Text('Skill required:'),
+                    trailing: DropdownButton(
+                      value: _skill,
+                      hint: Text('Choose'),
+                      onChanged: ((String newValue) {
+                        setState(() {
+                          _skill = newValue;
+                        });
+                      }),
+                      items: _dropDownMenuItems,
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text(
+                        'Latitude: ${_location['latitude']}, Longitude: ${_location['longitude']}',
+                      ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      RaisedButton(
+                        textColor: Colors.white,
+                        color: Colors.lightBlue,
+                        padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                        splashColor: Colors.grey,
+                        child: Text(
+                          'Get location',
+                        ),
+                        onPressed: () {
+                          FetchLocation().returnLocation().then((result) {
+                            print(result);
+                            setState(() {
+                              _location = result;
+                            });
+                          });
+                        },
+                      ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.0,
                   ),
                   TextFormField(
                     decoration: InputDecoration(
@@ -90,55 +138,6 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                       _workHours = val;
                     },
                   ),
-                  ListTile(
-                    title: Text('Skill required:'),
-                    trailing: DropdownButton(
-                      value: _skill,
-                      hint: Text('Choose'),
-                      onChanged: ((String newValue) {
-                        setState(() {
-                          _skill = newValue;
-                        });
-                      }),
-                      items: _dropDownMenuItems,
-                    ),
-                  ),
-                  SizedBox(height: 15,),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Text(
-                        'Latitude: ${_location['latitude']}, Longitude: ${_location['longitude']}',
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      RaisedButton(
-                        textColor: Colors.white,
-                        color: Colors.lightBlue,
-                        padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
-                        splashColor: Colors.grey,
-                        child: Text(
-                          'Get location',
-                        ),
-                        onPressed: (){
-                          FetchLocation().returnLocation().then((result) {
-                            print(result);
-                            setState(() {
-                              _location = result;
-                            });
-                          });
-                        },
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  
                   RaisedButton(
                       textColor: Colors.white,
                       color: Colors.lightBlue,
@@ -171,7 +170,8 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ResultDisplay(response)));
+                                builder: (context) =>
+                                    ResultDisplay(json.decode(response.body))));
                       })
                 ],
               ))),

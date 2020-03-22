@@ -54,6 +54,11 @@ def get_details_from_database():
 
         jsondata = json.dumps(jsondata)
         print(jsondata)
+        json_data={
+            'prediction':{
+                
+            }
+        }
         return jsondata
 
 

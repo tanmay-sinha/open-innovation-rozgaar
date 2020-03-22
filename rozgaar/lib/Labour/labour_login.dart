@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:rozgaar/Labour/labour_home.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -81,10 +80,10 @@ class _LabourLoginState extends State<LabourLogin> {
                     );
                     print(response.body);
                     print(response.statusCode);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LabourHome(response)),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => LabourHome(response)),
+                    // );
                   }
                 },
               )
