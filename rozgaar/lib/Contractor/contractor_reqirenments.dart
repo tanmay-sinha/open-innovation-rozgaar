@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
 import 'package:http/http.dart';
-
 import 'resultDisplay.dart';
 import 'package:rozgaar/get_location.dart';
 
@@ -50,6 +48,7 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
       appBar: new AppBar(
         title: Text("Requirements"),
       ),
+      resizeToAvoidBottomPadding: false,
       body: Container(
           padding: EdgeInsets.all(10.0),
           child: Form(
@@ -70,7 +69,6 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                       _numberOfLabours = val;
                     },
                   ),
-                  // SizedBox(height: 24.0),
                   ListTile(
                     title: Text('Skill required:'),
                     trailing: DropdownButton(
@@ -84,19 +82,24 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                       items: _dropDownMenuItems,
                     ),
                   ),
-                  //SizedBox(height: 24.0),
-                  Row(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
+                      Text(
+                        'Latitude: ${_location['latitude']}, Longitude: ${_location['longitude']}',
+                      ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
                       RaisedButton(
+                        textColor: Colors.white,
+                        color: Colors.lightBlue,
+                        padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                        splashColor: Colors.grey,
                         child: Text(
                           'Get location',
                         ),
-                        onPressed: (){
-                          // var response =  FetchLocation().returnLocation();
-                          // setState(() {
-                          //   _location = response;
-                          // });
+                        onPressed: () {
                           FetchLocation().returnLocation().then((result) {
                             print(result);
                             setState(() {
@@ -106,12 +109,12 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                         },
                       ),
                       SizedBox(
-                        width: 50.0,
-                      ),
-                      Text(
-                        'Latitude: ${_location['latitude']} Longitude: ${_location['longitude']}',
+                        height: 5.0,
                       ),
                     ],
+                  ),
+                  SizedBox(
+                    height: 10.0,
                   ),
                   TextFormField(
                     decoration: InputDecoration(
@@ -135,11 +138,11 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                       _workHours = val;
                     },
                   ),
-                  // RaisedButton(
-                  //   child: Text("Loacation"),
-                  //   onPressed: () {},
-                  // ),
                   RaisedButton(
+                      textColor: Colors.white,
+                      color: Colors.lightBlue,
+                      padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                      splashColor: Colors.grey,
                       child: Text("Search"),
                       onPressed: () async {
                         formKey.currentState.save();
@@ -155,19 +158,20 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                         var jsonRequirementData = jsonEncode(requirementData);
                         print(jsonRequirementData);
                         Response response = await post(
-                          "http://192.168.43.43:5000/get_details",
-                      headers: {
-                        "accept":"application/json",
-                        "content-type":"application/json",
-                      },
-                      body: jsonRequirementData,
+                          "http://192.168.43.137:5000/get_details",
+                          headers: {
+                            "accept": "application/json",
+                            "content-type": "application/json",
+                          },
+                          body: jsonRequirementData,
                         );
                         print(response.body);
                         print(response.statusCode);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ResultDisplay(response)));
+                                builder: (context) =>
+                                    ResultDisplay(json.decode(response.body))));
                       })
                 ],
               ))),
