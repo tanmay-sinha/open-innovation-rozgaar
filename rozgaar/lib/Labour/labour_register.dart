@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:rozgaar/Labour/labour_login.dart';
-// import 'package:rozgaar/Labour/labour_select_skills.dart';
 import 'package:rozgaar/get_location.dart';
 
 
@@ -48,9 +47,6 @@ class _LabourRegisterState extends State<LabourRegister> {
 
   @override
   Widget build(BuildContext context) {
-
-    // Labour labour = Labour();
-    // Labour labour;
 
     return Scaffold(
       appBar: AppBar(
@@ -107,18 +103,30 @@ class _LabourRegisterState extends State<LabourRegister> {
                   _age = age;
                 },
               ),
-              Row(
+              SizedBox(
+                height: 20.0,
+              ),
+              Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
+                  Text(
+                    'Latitude: ${_location['latitude']} Longitude: ${_location['longitude']}',
+                  ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
                   RaisedButton(
+                    textColor: Colors.white,
+                    color: Colors.lightBlue,
+                    padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                    splashColor: Colors.grey,
                     child: Text(
                       'Get location',
+                      style: TextStyle(
+                        fontSize: 14.0
+                      ),
                     ),
                     onPressed: (){
-                      // var response =  FetchLocation().returnLocation();
-                      // setState(() {
-                      //   _location = response;
-                      // });
                       FetchLocation().returnLocation().then((result) {
                         print(result);
                         setState(() {
@@ -127,28 +135,8 @@ class _LabourRegisterState extends State<LabourRegister> {
                       });
                     },
                   ),
-                  SizedBox(
-                    width: 50.0,
-                  ),
-                  Text(
-                    'Latitude: ${_location['latitude']} Longitude: ${_location['longitude']}',
-                  ),
                 ],
               ),
-              // TextFormField(
-              //   decoration: InputDecoration(
-              //     labelText: 'Location',
-              //   ),
-              //   validator: (val){
-              //     if(val.isEmpty){
-              //       return 'Location cannot be empty';
-              //     }
-              //     return null;
-              //   },
-              //   onSaved: (val){
-              //     _location = val;
-              //   },
-              // ),
               SizedBox(
                 height: 10.0,
               ),
@@ -165,103 +153,18 @@ class _LabourRegisterState extends State<LabourRegister> {
                   items: _dropDownMenuItems,
                 ),
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: <Widget>[
-              //     Text(
-              //       'Skills selected: ',
-              //       style: TextStyle(
-              //         fontSize: 18.0,
-              //       ),
-              //     ),
-              //     // Text(
-              //     //   '$skill',
-              //     // ),
-              //     Row(
-              //       children: _skills?.map((skill)  {
-              //         return Container(
-              //           child: Text(
-              //             '$skill ',
-              //             style: TextStyle(
-              //               fontSize: 16.0,
-              //             ),
-              //           ),
-              //         );
-              //       })?.toList() ?? [],
-              //     ),
-              //   ],
-              // ),
-              // SizedBox(
-              //   height: 10.0,
-              // ),
-              // RaisedButton(
-              //   child: Text(
-              //     'Select your skills'
-              //   ),
-              //   onPressed: () async{
-              //     // await skillSelection(context);
-              //     // var result = await Navigator.push(
-              //     //   context, MaterialPageRoute(builder: (context) => SelectSkillsLabour()));
-                  
-              //     // if(result == null){
-              //     //   result = [];
-              //     // }
-              //     // print(result);
-              //     // _skills = result;Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: <Widget>[
-              //     Text(
-              //       'Skills selected: ',
-              //       style: TextStyle(
-              //         fontSize: 18.0,
-              //       ),
-              //     ),
-              //     // Text(
-              //     //   '$skill',
-              //     // ),
-              //     Row(
-              //       children: _skills?.map((skill)  {
-              //         return Container(
-              //           child: Text(
-              //             '$skill ',
-              //             style: TextStyle(
-              //               fontSize: 16.0,
-              //             ),
-              //           ),
-              //         );
-              //       })?.toList() ?? [],
-              //     ),
-              //   ],
-              // ),
-              // SizedBox(
-              //   height: 10.0,
-              // ),
-              // RaisedButton(
-              //   child: Text(
-              //     'Select your skills'
-              //   ),
-              //   onPressed: () async{
-              //     // await skillSelection(context);
-              //     // var result = await Navigator.push(
-              //     //   context, MaterialPageRoute(builder: (context) => SelectSkillsLabour()));
-                  
-              //     // if(result == null){
-              //     //   result = [];
-              //     // }
-              //     // print(result);
-              //     // _skills = result;
-              //   },
-              // ),
-              //   },
-              // ),
               SizedBox(
                 height: 10.0,
               ),
               RaisedButton(
+                textColor: Colors.white,
+                  color: Colors.lightBlue,
+                  padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                  splashColor: Colors.grey,
                 child: Text(
                   'Submit',
                   style: TextStyle(
-                    color: Colors.blue,
+                    fontSize: 18.0,
                   ),
                 ),
                 onPressed: () async {
@@ -299,47 +202,3 @@ class _LabourRegisterState extends State<LabourRegister> {
     );
   }
 }
-
-// void skillSelection(BuildContext  context){
-//   var alertDialog = AlertDialog(
-//     title: Text(
-//       'Select skills',
-//     ),
-//     actions: <Widget>[
-//       Text('Cancel'),
-//       Text('OK'),
-//     ],
-//     content: Column(
-//       children: <Widget>[
-//         Row(
-//           children: <Widget>[
-//             Checkbox(
-//               value: false, 
-//               onChanged: (bool val){
-//                 print(val);
-//                 setState(){
-
-//                 };
-//             }),
-//             Text(
-//               'Woodwork'
-//             ),
-//           ],
-//         ),
-//         Row(
-//           children: <Widget>[
-//             Text(
-//               'Masonry'
-//             ),
-//           ],
-//         ),
-//       ],
-//     ),
-//   );
-//   showDialog(
-//     context: context,
-//     builder: (BuildContext context){
-//       return alertDialog;
-//     }
-//   );
-// }

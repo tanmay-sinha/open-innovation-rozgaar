@@ -15,23 +15,23 @@ class Labour extends StatelessWidget {
       ),
       body: new Container(
         child: new Column(
-             //crossAxisAlignment: CrossAxisAlignment.center,
              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               ButtonBar(
                 alignment: MainAxisAlignment.spaceAround,
                 
                 children: <Widget>[
-                  
                   RaisedButton(
-                    child: Text('Login'),
-                    onPressed: () {
-                      Navigator.push(
-                          context, MaterialPageRoute(builder: (context) => LabourLogin()));
-                    },
-                  ),
-                  RaisedButton(
-                    child: Text('Register'),
+                    textColor: Colors.white,
+                    color: Colors.lightBlue,
+                    padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                    splashColor: Colors.grey,
+                    child: Text(
+                      'Register',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                      ),
+                    ),
                     onPressed: () {
                       Navigator.push(
                           context, MaterialPageRoute(builder: (context) => LabourRegister()));

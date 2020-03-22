@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-// import 'contractor_login.dart';
 
 class ContractorRegistration extends StatefulWidget {
   @override
@@ -11,7 +10,6 @@ class ContractorRegistration extends StatefulWidget {
 
 class _ContractorRegistrationState extends State<ContractorRegistration> {
   String _name, _phone;
-  // int _age;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -59,57 +57,19 @@ class _ContractorRegistrationState extends State<ContractorRegistration> {
                 },
               ),
 
-              // TextFormField(
-              //   decoration: InputDecoration(
-              //     labelText: 'Location',
-              //   ),
-              //   validator: (val) {
-              //     if (val.isEmpty) {
-              //       return 'Location cannot be empty';
-              //     }
-              //     return null;
-              //   },
-              //   onSaved: (val) {
-              //     _location = val;
-              //   },
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: <Widget>[
-              //     RaisedButton(
-              //       child: Text(
-              //         'Get location',
-              //       ),
-              //       onPressed: (){
-              //         // var response =  FetchLocation().returnLocation();
-              //         // setState(() {
-              //         //   _location = response;
-              //         // });
-              //         FetchLocation().returnLocation().then((result) {
-              //           print(result);
-              //           setState(() {
-              //             _location = result;
-              //           });
-              //         });
-              //       },
-              //     ),
-              //     SizedBox(
-              //       width: 50.0,
-              //     ),
-              //     Text(
-              //       'Latitude: ${_location['latitude']} Longitude: ${_location['longitude']}',
-              //     ),
-              //   ],
-              // ),
               SizedBox(
                 height: 10.0,
               ),
 
               RaisedButton(
+                textColor: Colors.white,
+                color: Colors.lightBlue,
+                padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                splashColor: Colors.grey,
                 child: Text(
                   'Submit',
                   style: TextStyle(
-                    color: Colors.blue,
+                    fontSize: 18.0
                   ),
                 ),
                 onPressed: () async {
@@ -118,8 +78,7 @@ class _ContractorRegistrationState extends State<ContractorRegistration> {
                     print('Registration successful');
                     Map data = {
                       'name': _name,
-                      'phone': _phone, //**************
-                      // 'location': _location,
+                      'phone': _phone,
                     };
                     var jsonData = jsonEncode(data);
                     Response response = await post(
@@ -132,7 +91,6 @@ class _ContractorRegistrationState extends State<ContractorRegistration> {
                   }
                 },
               )
-              // ,SizedBox(height: 24,)
             ],
           ),
         ),
