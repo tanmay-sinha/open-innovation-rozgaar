@@ -7,7 +7,7 @@ from pickle import dump, load
 
 class Model:
     model_positive=load(open('model/model+ve.pkl', 'rb'))
-    xscaler_poistive=load(open('model/xscaler+ve.pkl', 'rb'))
+    xscaler_positive=load(open('model/xscaler+ve.pkl', 'rb'))
     yscaler_positive=load(open('model/yscaler+ve.pkl', 'rb'))
     model_negative=load(open('model/model-ve.pkl', 'rb'))
     xscaler_negative=load(open('model/xscaler-ve.pkl', 'rb'))
