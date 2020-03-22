@@ -6,13 +6,13 @@ from sklearn.linear_model import LinearRegression,Ridge
 from pickle import dump, load
 
 class Model:
-    model_positive=load(open('model+ve.pkl', 'rb'))
-    xscaler_poistive=load(open('xscaler+ve.pkl', 'rb'))
-    yscaler_positive=load(open('yscaler+ve.pkl', 'rb'))
-    model_negative=load(open('model-ve.pkl', 'rb'))
-    xscaler_negative=load(open('xscaler-ve.pkl', 'rb'))
-    yscaler_negative=load(open('yscaler-ve.pkl', 'rb'))
-    poly=load(open('poly.pkl', 'rb'))
+    model_positive=load(open('model/model+ve.pkl', 'rb'))
+    xscaler_poistive=load(open('model/xscaler+ve.pkl', 'rb'))
+    yscaler_positive=load(open('model/yscaler+ve.pkl', 'rb'))
+    model_negative=load(open('model/model-ve.pkl', 'rb'))
+    xscaler_negative=load(open('model/xscaler-ve.pkl', 'rb'))
+    yscaler_negative=load(open('model/yscaler-ve.pkl', 'rb'))
+    poly=load(open('model/poly.pkl', 'rb'))
 
     #If input is direct from database extract will prepare and drop unnecessary columns
     def extract(self,df):
