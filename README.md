@@ -24,6 +24,16 @@ Along with labours, it would be a convenient method for contractors as well and 
 - Google Map API
 - Sklearn
 
+## Usage of App
+- Install the app on your android 
+- After installtion if you are a contractor you need to register yourself 
+
+  (NOTE - It is assumed that the laborers will be registered on database with their details)
+- The next screen will take you to options where you need to input the work to be done and select which skill laborers you want            including how many of them.
+- After reciveing acceptance from the laborer you will see on the screen the labor details such as his/her name,age,gender,etc.
+- That's all you got the suitable laborers required for your work.
+
+
 ## Future Goals
 - Ensuring correct information on each labourer’s and contractor’s side.
 - Automatic skill selection using only work type.
