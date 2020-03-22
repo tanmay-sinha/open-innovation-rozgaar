@@ -7,7 +7,7 @@ from pickle import dump, load
 
 class Model:
     model_positive=load(open('model+ve.pkl', 'rb'))
-    xscaler_poistive=load(open('xscaler+ve.pkl', 'rb'))
+    xscaler_poisitive=load(open('xscaler+ve.pkl', 'rb'))
     yscaler_positive=load(open('yscaler+ve.pkl', 'rb'))
     model_negative=load(open('model-ve.pkl', 'rb'))
     xscaler_negative=load(open('xscaler-ve.pkl', 'rb'))
@@ -81,7 +81,7 @@ if __name__=='__main__':
     #Input format Lists of Lists [[age,gender,income,distance,workintensity](labor 1),[age,gender,...](labor2),...etc]
     #========NOTE====>> All functions contain type as parameter in which you need to pass '+' or '-' depending upon the work will be age prefered positively or negatively
     l2={2:[26,0,200,8,9],5:[36,1,1000,3,9],8:[25,0,1000,20,9]}
-    pre,index= obj.preprocess_input(l2,'-')
+    pre,index= obj.preprocess_input(l2,'+')
     ans= obj.predict(pre,'-',index)
     print(ans)
     
