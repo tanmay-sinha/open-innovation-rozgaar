@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ResultDisplay extends StatefulWidget {
-  // var response;
-  // resultDisplay(var x) {
-    // this.response = x;
-  // }
-  var response;
+  final response;
   ResultDisplay(this.response);
   @override
   _ResultDisplayState createState() => _ResultDisplayState();

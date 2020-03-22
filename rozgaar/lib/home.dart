@@ -15,33 +15,69 @@ class Home extends StatelessWidget {
           IconButton(icon: Icon(Icons.home), onPressed: () {}),
         ],
       ),
-      body: new Container(
+      body: Container(
         child: new Column(
-            //crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              ButtonBar(
-                alignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  RaisedButton(
-                    child: Text('Labour'),
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Labour()));
-                    },
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Card(
+              color: Colors.teal,
+              margin: EdgeInsets.all(20.0),
+              elevation: 0.0,
+              child: Container(
+                height: 100.0,
+                child: InkWell(
+                  splashColor: Colors.black45,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Labour()),
+                    );
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          'Labour',
+                          style: TextStyle(fontSize: 40),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
                   ),
-                  RaisedButton(
-                    child: Text('Contractor'),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ContractorLogin()));
-                    },
-                  ),
-                ],
+                ),
               ),
-            ]),
+            ),
+            Card(
+              color: Colors.teal,
+              margin: EdgeInsets.all(20.0),
+              elevation: 0.0,
+              child: Container(
+                height: 100.0,
+                child: InkWell(
+                  splashColor: Colors.black45,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ContractorLogin()),
+                    );
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          'Contractor',
+                          style: TextStyle(fontSize: 40),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     ));
   }

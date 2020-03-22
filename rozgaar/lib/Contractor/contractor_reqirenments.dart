@@ -84,7 +84,11 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                       items: _dropDownMenuItems,
                     ),
                   ),
-                  //SizedBox(height: 24.0),
+                  SizedBox(height: 24.0),
+                  Text(
+                    'Latitude: ${_location['latitude']} Longitude: ${_location['longitude']}',
+                    textAlign: TextAlign.center,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
@@ -92,11 +96,7 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                         child: Text(
                           'Get location',
                         ),
-                        onPressed: (){
-                          // var response =  FetchLocation().returnLocation();
-                          // setState(() {
-                          //   _location = response;
-                          // });
+                        onPressed: () {
                           FetchLocation().returnLocation().then((result) {
                             print(result);
                             setState(() {
@@ -104,12 +104,6 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                             });
                           });
                         },
-                      ),
-                      SizedBox(
-                        width: 50.0,
-                      ),
-                      Text(
-                        'Latitude: ${_location['latitude']} Longitude: ${_location['longitude']}',
                       ),
                     ],
                   ),
@@ -156,11 +150,11 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                         print(jsonRequirementData);
                         Response response = await post(
                           "http://192.168.43.43:5000/get_details",
-                      headers: {
-                        "accept":"application/json",
-                        "content-type":"application/json",
-                      },
-                      body: jsonRequirementData,
+                          headers: {
+                            "accept": "application/json",
+                            "content-type": "application/json",
+                          },
+                          body: jsonRequirementData,
                         );
                         print(response.body);
                         print(response.statusCode);

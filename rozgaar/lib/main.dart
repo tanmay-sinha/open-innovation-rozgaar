@@ -8,6 +8,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: new Home(),
+      theme: ThemeData(
+        // brightness: Brightness.dark
+        primaryColor: Colors.indigo,
+        accentColor: Colors.black,
+      ),
     );
   }
 }

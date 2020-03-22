@@ -107,6 +107,11 @@ class _LabourRegisterState extends State<LabourRegister> {
                   _age = age;
                 },
               ),
+              SizedBox(height: 24,),
+              Text(
+                    'Latitude: ${_location['latitude']} Longitude: ${_location['longitude']}',
+                  ),
+                  //SizedBox(height: 24,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -127,12 +132,8 @@ class _LabourRegisterState extends State<LabourRegister> {
                       });
                     },
                   ),
-                  SizedBox(
-                    width: 50.0,
-                  ),
-                  Text(
-                    'Latitude: ${_location['latitude']} Longitude: ${_location['longitude']}',
-                  ),
+                 
+                  
                 ],
               ),
               // TextFormField(
@@ -153,7 +154,7 @@ class _LabourRegisterState extends State<LabourRegister> {
                 height: 10.0,
               ),
               ListTile(
-                title: Text('Skill required:'),
+                title: Text('Skill :'),
                 trailing: DropdownButton(
                   value: _skill,
                   hint: Text('Choose'),
