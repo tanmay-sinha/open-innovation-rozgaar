@@ -2,9 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:rozgaar/Labour/labour_login.dart';
-// import 'package:rozgaar/Labour/labour_select_skills.dart';
 import 'package:rozgaar/get_location.dart';
-
 
 class LabourRegister extends StatefulWidget {
   @override
@@ -12,13 +10,13 @@ class LabourRegister extends StatefulWidget {
 }
 
 class _LabourRegisterState extends State<LabourRegister> {
-
   String _name, _gender;
   Map<String, double> _location = {
     'latitude': 0.0,
     'longitude': 0.0,
   };
   int _age;
+  String _contact_no;
   String skill = "";
 
   final _formKey = GlobalKey<FormState>();
@@ -48,10 +46,6 @@ class _LabourRegisterState extends State<LabourRegister> {
 
   @override
   Widget build(BuildContext context) {
-
-    // Labour labour = Labour();
-    // Labour labour;
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Register yourself'),
@@ -67,13 +61,13 @@ class _LabourRegisterState extends State<LabourRegister> {
                 decoration: InputDecoration(
                   labelText: 'Name',
                 ),
-                validator: (val){
-                  if(val.isEmpty){
+                validator: (val) {
+                  if (val.isEmpty) {
                     return 'Name cannot be empty';
                   }
                   return null;
                 },
-                onSaved: (val){
+                onSaved: (val) {
                   _name = val;
                 },
               ),
@@ -81,49 +75,68 @@ class _LabourRegisterState extends State<LabourRegister> {
                 decoration: InputDecoration(
                   labelText: 'Gender',
                 ),
-                validator: (val){
-                  if(val.isEmpty){
+                validator: (val) {
+                  if (val.isEmpty) {
                     return 'Gender cannot be empty';
                   }
                   return null;
                 },
-                onSaved: (val){
+                onSaved: (val) {
                   _gender = val;
+                },
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Contact number',
+                ),
+                validator: (val) {
+                  if (val.length != 10) {
+                    return 'Must be a 10 digit number';
+                  }
+                  return null;
+                },
+                onSaved: (val) {
+                  _contact_no = val;
                 },
               ),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Age',
                 ),
-                validator: (val){
+                validator: (val) {
                   int age = int.tryParse(val);
-                  if(age == null || age < 0){
+                  if (age == null || age < 0) {
                     return 'Age cannot be empty or negative';
                   }
                   return null;
                 },
-                onSaved: (val){
+                onSaved: (val) {
                   int age = int.tryParse(val);
                   _age = age;
                 },
               ),
-              SizedBox(height: 24,),
-              Text(
-                    'Latitude: ${_location['latitude']} Longitude: ${_location['longitude']}',
-                  ),
-                  //SizedBox(height: 24,),
-              Row(
+              SizedBox(
+                height: 20.0,
+              ),
+              Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
+                  Text(
+                    'Latitude: ${_location['latitude']} Longitude: ${_location['longitude']}',
+                  ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
                   RaisedButton(
+                    textColor: Colors.white,
+                    color: Colors.lightBlue,
+                    padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                    splashColor: Colors.grey,
                     child: Text(
                       'Get location',
+                      style: TextStyle(fontSize: 14.0),
                     ),
-                    onPressed: (){
-                      // var response =  FetchLocation().returnLocation();
-                      // setState(() {
-                      //   _location = response;
-                      // });
+                    onPressed: () {
                       FetchLocation().returnLocation().then((result) {
                         print(result);
                         setState(() {
@@ -132,24 +145,8 @@ class _LabourRegisterState extends State<LabourRegister> {
                       });
                     },
                   ),
-                 
-                  
                 ],
               ),
-              // TextFormField(
-              //   decoration: InputDecoration(
-              //     labelText: 'Location',
-              //   ),
-              //   validator: (val){
-              //     if(val.isEmpty){
-              //       return 'Location cannot be empty';
-              //     }
-              //     return null;
-              //   },
-              //   onSaved: (val){
-              //     _location = val;
-              //   },
-              // ),
               SizedBox(
                 height: 10.0,
               ),
@@ -166,129 +163,46 @@ class _LabourRegisterState extends State<LabourRegister> {
                   items: _dropDownMenuItems,
                 ),
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: <Widget>[
-              //     Text(
-              //       'Skills selected: ',
-              //       style: TextStyle(
-              //         fontSize: 18.0,
-              //       ),
-              //     ),
-              //     // Text(
-              //     //   '$skill',
-              //     // ),
-              //     Row(
-              //       children: _skills?.map((skill)  {
-              //         return Container(
-              //           child: Text(
-              //             '$skill ',
-              //             style: TextStyle(
-              //               fontSize: 16.0,
-              //             ),
-              //           ),
-              //         );
-              //       })?.toList() ?? [],
-              //     ),
-              //   ],
-              // ),
-              // SizedBox(
-              //   height: 10.0,
-              // ),
-              // RaisedButton(
-              //   child: Text(
-              //     'Select your skills'
-              //   ),
-              //   onPressed: () async{
-              //     // await skillSelection(context);
-              //     // var result = await Navigator.push(
-              //     //   context, MaterialPageRoute(builder: (context) => SelectSkillsLabour()));
-                  
-              //     // if(result == null){
-              //     //   result = [];
-              //     // }
-              //     // print(result);
-              //     // _skills = result;Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: <Widget>[
-              //     Text(
-              //       'Skills selected: ',
-              //       style: TextStyle(
-              //         fontSize: 18.0,
-              //       ),
-              //     ),
-              //     // Text(
-              //     //   '$skill',
-              //     // ),
-              //     Row(
-              //       children: _skills?.map((skill)  {
-              //         return Container(
-              //           child: Text(
-              //             '$skill ',
-              //             style: TextStyle(
-              //               fontSize: 16.0,
-              //             ),
-              //           ),
-              //         );
-              //       })?.toList() ?? [],
-              //     ),
-              //   ],
-              // ),
-              // SizedBox(
-              //   height: 10.0,
-              // ),
-              // RaisedButton(
-              //   child: Text(
-              //     'Select your skills'
-              //   ),
-              //   onPressed: () async{
-              //     // await skillSelection(context);
-              //     // var result = await Navigator.push(
-              //     //   context, MaterialPageRoute(builder: (context) => SelectSkillsLabour()));
-                  
-              //     // if(result == null){
-              //     //   result = [];
-              //     // }
-              //     // print(result);
-              //     // _skills = result;
-              //   },
-              // ),
-              //   },
-              // ),
               SizedBox(
                 height: 10.0,
               ),
               RaisedButton(
+                textColor: Colors.white,
+                color: Colors.lightBlue,
+                padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                splashColor: Colors.grey,
                 child: Text(
                   'Submit',
                   style: TextStyle(
-                    color: Colors.blue,
+                    fontSize: 18.0,
                   ),
                 ),
                 onPressed: () async {
-                  if(_formKey.currentState.validate()){
+                  if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
                     print('Registration successful');
                     Map data = {
-                      'name' : _name,
-                      'age' : _age,
-                      'gender' : _gender,
-                      'location' : _location,
-                      'skills' : _skill,
+                      'name': _name,
+                      'age': _age,
+                      'gender': _gender,
+                      'location': _location,
+                      'skills': _skill,
+                      'contact': _contact_no,
                     };
                     var jsonData = jsonEncode(data);
                     Response response = await post(
                       "http://192.168.43.43:5000/add_database",
                       headers: {
-                        "accept":"application/json",
-                        "content-type":"application/json",
+                        "accept": "application/json",
+                        "content-type": "application/json",
                       },
                       body: jsonData,
                     );
                     print(response.body);
                     print(response.statusCode);
                     Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => LabourLogin()),
+                      context,
+                      MaterialPageRoute(builder: (context) => LabourLogin()),
                     );
                   }
                 },
@@ -300,47 +214,3 @@ class _LabourRegisterState extends State<LabourRegister> {
     );
   }
 }
-
-// void skillSelection(BuildContext  context){
-//   var alertDialog = AlertDialog(
-//     title: Text(
-//       'Select skills',
-//     ),
-//     actions: <Widget>[
-//       Text('Cancel'),
-//       Text('OK'),
-//     ],
-//     content: Column(
-//       children: <Widget>[
-//         Row(
-//           children: <Widget>[
-//             Checkbox(
-//               value: false, 
-//               onChanged: (bool val){
-//                 print(val);
-//                 setState(){
-
-//                 };
-//             }),
-//             Text(
-//               'Woodwork'
-//             ),
-//           ],
-//         ),
-//         Row(
-//           children: <Widget>[
-//             Text(
-//               'Masonry'
-//             ),
-//           ],
-//         ),
-//       ],
-//     ),
-//   );
-//   showDialog(
-//     context: context,
-//     builder: (BuildContext context){
-//       return alertDialog;
-//     }
-//   );
-// }

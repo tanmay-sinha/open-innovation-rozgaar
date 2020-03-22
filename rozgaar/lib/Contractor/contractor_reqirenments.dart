@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
 import 'package:http/http.dart';
-
 import 'resultDisplay.dart';
 import 'package:rozgaar/get_location.dart';
 
@@ -70,43 +68,6 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                       _numberOfLabours = val;
                     },
                   ),
-                  // SizedBox(height: 24.0),
-                  ListTile(
-                    title: Text('Skill required:'),
-                    trailing: DropdownButton(
-                      value: _skill,
-                      hint: Text('Choose'),
-                      onChanged: ((String newValue) {
-                        setState(() {
-                          _skill = newValue;
-                        });
-                      }),
-                      items: _dropDownMenuItems,
-                    ),
-                  ),
-                  SizedBox(height: 24.0),
-                  Text(
-                    'Latitude: ${_location['latitude']} Longitude: ${_location['longitude']}',
-                    textAlign: TextAlign.center,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      RaisedButton(
-                        child: Text(
-                          'Get location',
-                        ),
-                        onPressed: () {
-                          FetchLocation().returnLocation().then((result) {
-                            print(result);
-                            setState(() {
-                              _location = result;
-                            });
-                          });
-                        },
-                      ),
-                    ],
-                  ),
                   TextFormField(
                     decoration: InputDecoration(
                       border: UnderlineInputBorder(),
@@ -129,11 +90,60 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                       _workHours = val;
                     },
                   ),
-                  // RaisedButton(
-                  //   child: Text("Loacation"),
-                  //   onPressed: () {},
-                  // ),
+                  ListTile(
+                    title: Text('Skill required:'),
+                    trailing: DropdownButton(
+                      value: _skill,
+                      hint: Text('Choose'),
+                      onChanged: ((String newValue) {
+                        setState(() {
+                          _skill = newValue;
+                        });
+                      }),
+                      items: _dropDownMenuItems,
+                    ),
+                  ),
+                  SizedBox(height: 15,),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text(
+                        'Latitude: ${_location['latitude']}, Longitude: ${_location['longitude']}',
+                      ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      RaisedButton(
+                        textColor: Colors.white,
+                        color: Colors.lightBlue,
+                        padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                        splashColor: Colors.grey,
+                        child: Text(
+                          'Get location',
+                        ),
+                        onPressed: (){
+                          FetchLocation().returnLocation().then((result) {
+                            print(result);
+                            setState(() {
+                              _location = result;
+                            });
+                          });
+                        },
+                      ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  
                   RaisedButton(
+                      textColor: Colors.white,
+                      color: Colors.lightBlue,
+                      padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                      splashColor: Colors.grey,
                       child: Text("Search"),
                       onPressed: () async {
                         formKey.currentState.save();
@@ -149,7 +159,7 @@ class _ContractorRequirenmentState extends State<ContractorRequirenment> {
                         var jsonRequirementData = jsonEncode(requirementData);
                         print(jsonRequirementData);
                         Response response = await post(
-                          "http://192.168.43.43:5000/get_details",
+                          "http://192.168.43.137:5000/get_details",
                           headers: {
                             "accept": "application/json",
                             "content-type": "application/json",

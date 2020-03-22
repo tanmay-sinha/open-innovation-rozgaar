@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'contractor_reqirenments.dart';
@@ -54,12 +53,21 @@ class _ContractorLoginState extends State<ContractorLogin> {
                       _password = value;
                     },
                   ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
                   RaisedButton(
-                    child: Text('Login'),
-                    color: Colors.black26,
+                    textColor: Colors.white,
+                    color: Colors.lightBlue,
+                    padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                    splashColor: Colors.grey,
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                        fontSize: 18.0
+                      ),
+                    ),
                     onPressed: () async {
-                      //Navigator.pop(context);
-                      //Navigator.pop(context);
                       formKey.currentState.save();
                       print("Request generated $_id $_password");
                       Map loginData = {'id': _id, 'password': _password};
@@ -78,11 +86,23 @@ class _ContractorLoginState extends State<ContractorLogin> {
                               builder: (context) => ContractorRequirenment()));
                     },
                   ),
-                  Text("or"),
-                  SizedBox(height: 40.0),
+                  SizedBox(height: 15.0),
+                  Text(
+                    "or",
+                    style: TextStyle(fontSize: 22.0),
+                  ),
+                  SizedBox(height: 15.0),
                   RaisedButton(
-                    child: Text('Register'),
-                    color: Colors.black26,
+                    textColor: Colors.white,
+                    color: Colors.lightBlue,
+                    padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                    splashColor: Colors.grey,
+                    child: Text(
+                      'Register',
+                      style: TextStyle(
+                        fontSize: 18.0
+                      ),
+                    ),
                     onPressed: () {
                       Navigator.push(
                           context,
